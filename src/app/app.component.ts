@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   combineLatest,
+  debounceTime,
   filter,
   forkJoin,
   map,
@@ -48,6 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.charactersResults$ = this.searchTermByCharacters
         .pipe(
         // YOUR CODE STARTS HERE
+					debounceTime(300),
 					filter(term => term.length <= 3),
 					switchMap(term => this.mockDataService.getCharacters(term))
         // YOUR CODE ENDS HERE
